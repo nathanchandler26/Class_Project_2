@@ -15,7 +15,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	//defer f.Close()
+	defer f.Close()
 
 	// Get user input and save it to an int for number of people on each team
 	fmt.Println("Enter the number of people on each team:")
@@ -29,6 +29,13 @@ func main() {
 	// Shuffle the records to randomize
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(records), func(i, j int) { records[i], records[j] = records[j], records[i] })
-	fmt.Println(records)
+	//fmt.Println(records)
+
+	var numGroups int = len(records) / numPeople // Get the number of groups
+	var extra int = len(records) % numPeople     // Get the number of extra people
+
+	for i := 0; i < numGroups; i++ {
+
+	}
 
 }
