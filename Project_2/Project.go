@@ -6,11 +6,14 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"strconv"
+	"strings"
 	"time"
 )
 
 func main() {
-	f, err := os.Open("Project2_Names.csv") // Open the csv file
+	// Open the csv file
+	f, err := os.Open("Project2_Names.csv")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,19 +37,25 @@ func main() {
 	var numTeams int = len(records) / numPeople
 	var extra int = len(records) % numPeople
 
-	// Initialize groups
+	// Initializing teams
+	teams := [][]string{}
+
+	// Adding people to teams
 	for i := 0; i < numTeams; i++ {
-		//teams.add
+		var temp []string
+		for j := 0; j < numPeople; j++ {
+			temp = append(temp, records[i*numPeople+j][0])
+		}
+		teams = append(teams, temp)
 	}
 
 	// Add extra people to teams
 	for i := 0; i < extra; i++ {
-
+		teams[i] = append(teams[i], records[len(records)-i-1][0])
 	}
 
 	// Print teams
-	//for i := 0; i < len(teams); i++ {
-	//	fmt.Println("Team " + (i + 1) + ":" + teams[i])
-	//}
-
+	for i := 0; i < len(teams); i++ {
+		fmt.Println("Team " + strconv.Itoa(i+1) + ":" + strings.Join(teams[i], ", "))
+	}
 }
